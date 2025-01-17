@@ -18,11 +18,13 @@ class CreateUsersTable extends Migration
 
             $table->char('name', 150);
             $table->string('description')->nullable();
+            $table->string('image')->nullable();
             $table->char('ip', 20);
             $table->char('public_url', 150);
 
             $table->boolean('active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::table('brands')->insert([
             ['id' => 1, 'name' => 'prueba sistemas', 'description' => 'Plataforma de prueba', 'ip' => '127.0.0.1', 'public_url' => 'http://127.0.0.1:8000/'],
@@ -30,7 +32,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('brand_id')->unsigned()->default(1);
+            $table->unsignedBigInteger('brand_id')->default(1);
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
 
             $table->string('license')->unique();
@@ -72,5 +74,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('brands');
     }
 }

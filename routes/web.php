@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '{brand_id}', 'middleware' => 'verify.brand'], function () {
+    // Todas las rutas internas están dentro del prefijo de brand_id
+    Route::get('/', [LoginController::class, 'getLogin'])->name('admin.login');
+    Route::post('login/submit', [LoginController::class, 'do_Login'])->name('admin.do_login');
+
+
+    Route::group(['middleware' => ['auth', 'set.brand']], function () {
+        require base_path('routes/admin/routes.php');
+    });
 });
+
+
