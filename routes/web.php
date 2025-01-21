@@ -18,9 +18,10 @@ Route::group(['prefix' => '{brand_id}', 'middleware' => 'verify.brand'], functio
     // Todas las rutas internas están dentro del prefijo de brand_id
     Route::get('/', [LoginController::class, 'getLogin'])->name('admin.login');
     Route::post('login/submit', [LoginController::class, 'do_Login'])->name('admin.do_login');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
 
-    Route::group(['middleware' => ['auth', 'set.brand']], function () {
+    Route::group(['middleware' => ['auth', 'verify.brand']], function () {
         require base_path('routes/admin/routes.php');
     });
 });

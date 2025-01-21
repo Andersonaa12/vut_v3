@@ -30,6 +30,9 @@
         },
         "classmap": [
             "app/Models"
+        ],
+        "files": [
+        "app/Helpers/brandHelper.php"
         ]
     },
     "autoload-dev": {

@@ -18,9 +18,8 @@ class VerifyAndSetBrand
      */
     public function handle(Request $request, Closure $next)
     {
-        $brandId = $request->route('brand_id'); // Capturar el parámetro brand_id de la URL
+        $brandId = $request->route('brand_id'); 
 
-        // Verificar si el brand_id existe en la base de datos
         $brand = Brand::find($brandId);
 
         if (!$brand) {
