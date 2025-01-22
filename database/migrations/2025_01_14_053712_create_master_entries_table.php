@@ -39,21 +39,59 @@ class CreateMasterEntriesTable extends Migration
             ['id' => 5, 'name' => 'Salida', 'description' => 'La entrada se ha convertido en una salida o despacho.'],
             ['id' => 6, 'name' => 'Finalizado', 'description' => 'El proceso relacionado con esta entrada ha concluido.'],
         ]);
-        
+        Schema::create('type_outputs', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('brand_id')->default(1);
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
+
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->boolean('active')->default('1');
+
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
+            $table->timestamps();
+        });
+        DB::table('type_outputs')->insert([
+            ['id' => 1, 'brand_id' => '1', 'name' => 'xd', 'description' => 'Correo físico o postal en la dirección destinada para el recibo de la solicitud'],
+        ]);
+        Schema::create('master_consecutive', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('brand_id')->default(1);
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
+
+            $table->unsignedBigInteger('master_entrie_type_id');
+            $table->foreign('master_entrie_type_id')->references('id')->on('master_entrie_types')->onDelete('restrict');
+
+            $table->integer('consecutive');
+            $table->string('prefix', 30)->nullable();
+            $table->string('year', 4)->nullable();
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
+            $table->softDeletes();
+        });
+
         Schema::create('master_entries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('brand_id')->default(1);
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
             $table->unsignedBigInteger('master_entrie_type_id');
             $table->foreign('master_entrie_type_id')->references('id')->on('master_entrie_types')->onDelete('restrict');
             $table->unsignedBigInteger('master_entrie_status_id')->default(1);
             $table->foreign('master_entrie_status_id')->references('id')->on('master_entrie_status')->onDelete('restrict');
             
-            
+            $table->unsignedBigInteger('type_outputs_id');
+            $table->foreign('type_outputs_id')->references('id')->on('type_outputs')->onDelete('restrict');
+
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->softDeletes();
         });
+
         Schema::create('master_entrie_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('brand_id')->default(1);
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
             $table->unsignedBigInteger('master_entrie_id');
             $table->foreign('master_entrie_id')->references('id')->on('master_entries')->onDelete('cascade');
 
@@ -61,8 +99,11 @@ class CreateMasterEntriesTable extends Migration
             $table->integer('updated_by')->unsigned()->nullable();
             $table->softDeletes();
         });
+
         Schema::create('master_entrie_assigned_users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('brand_id')->default(1);
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
             $table->unsignedBigInteger('master_entrie_id');
             $table->foreign('master_entrie_id')->references('id')->on('master_entries')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
@@ -72,8 +113,11 @@ class CreateMasterEntriesTable extends Migration
             $table->integer('updated_by')->unsigned()->nullable();
             $table->softDeletes();
         });
+
         Schema::create('master_entries_documents', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('brand_id')->default(1);
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
             $table->unsignedBigInteger('master_entrie_id');
             $table->foreign('master_entrie_id')->references('id')->on('master_entries')->onDelete('cascade');
 

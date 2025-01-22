@@ -17,8 +17,14 @@
         <link rel="stylesheet" href="{{ asset('assets/css/nucleo-icons.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/nucleo-svg.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+        
         <!-- Font Awesome Icons -->
-        <script src="https://kit.fontawesome.com/0caf5cbc37.js" crossorigin="anonymous"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+        >
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+
         <!-- CSS Files -->
         <link id="pagestyle" rel="stylesheet" href="{{ asset('assets/css/soft-ui-dashboard.css') }}" >
         @yield('extracss')
@@ -36,7 +42,6 @@
             @include('layouts.footer')
         </main>
           
-        <script src="/vendor/assets/js/jquery-3.1.1.min.js"></script>
         @yield('scripts')
         <!--   Core JS Files   -->
         <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -226,8 +231,7 @@
         </script>
         <!-- Github buttons -->
         <script src="{{ asset('assets/js/buttons.js') }}"></script>
-        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="../assets/js/soft-ui-dashboard.min.js?v=1.1.0"></script>
+        <script src="{{ asset('assets/js/soft-ui-dashboard.min.js') }}"></script>
     </body>
 
 </html>

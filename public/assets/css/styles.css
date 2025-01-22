@@ -35,3 +35,76 @@
     color: white;
     border-radius: 20px; /* Opcional: Bordes redondeados */
 }
+
+/* Estilo base del card */
+.card-data {
+    background-color: white; /* Fondo blanco por defecto */
+    transition: all 0.3s ease; /* Suaviza las transiciones */
+}
+
+/* Hover en el card */
+.card-data:hover {
+    background-color: rgba(0, 159, 189, 1); /* Fondo del card a azul */
+    color: white; /* Cambia el texto a blanco */
+}
+
+/* Cambios en el card-footer */
+.card-data .card-footer {
+    background-color: rgba(0, 159, 189, 1); /* Color inicial del footer */
+    color: white; /* Texto inicial blanco */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+.card-data:hover .card-footer {
+    background-color: white !important; /* Fondo blanco al hacer hover */
+    color: rgba(0, 159, 189, 1) !important; /* Cambia el texto del footer */
+}
+
+/* Cambios en el ícono */
+.card-data .icon {
+    background-color: rgba(0, 159, 189, 1); /* Azul inicial */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.card-data:hover .icon {
+    background-color: white !important; /* Fondo blanco para el ícono al hacer hover */
+    transform: scale(1.2); /* Agranda el ícono */
+    transition: all 0.3s ease; /* Asegura la suavidad del cambio */
+}
+
+/* Cambios en el texto del ícono */
+.card-data .icon i {
+    color: white; /* Color inicial del ícono */
+    transition: color 0.3s ease; /* Suaviza el cambio de color */
+}
+
+.card-data:hover .icon i {
+    color: rgba(0, 159, 189, 1) !important; /* Cambia el color del ícono al hacer hover */
+}
+
+
+/* Estilo para el texto principal */
+.card-data h5 {
+    color: black; /* Texto negro inicial */
+    transition: color 0.3s ease;
+}
+.top-right {
+    position: absolute; /* Posiciona el elemento relativo al contenedor padre */
+    top: 10px; /* Ajusta la distancia desde la parte superior */
+    right: 10px; /* Ajusta la distancia desde la parte derecha */
+    color: black; /* Color del texto */
+    font-size: 16px; /* Tamaño del texto */
+    z-index: 10; /* Asegura que esté encima de otros elementos */
+}
+.card-data:hover h5 {
+    color: white; /* Texto blanco al hacer hover */
+}
+.card-data:hover .card-footer span {
+    color: rgba(0, 159, 189, 1) !important; /* Asegura que el texto cambie de color */
+    transition: color 0.3s ease; /* Suaviza la transición del color */
+}
+.range-btn.active {
+    background-color: #0d6efd; /* Azul Bootstrap */
+    color: white; /* Texto blanco */
+    border-color: #0d6efd; /* Borde azul */
+}

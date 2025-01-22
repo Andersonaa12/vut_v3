@@ -7,6 +7,7 @@
   <title>Login</title>
   <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
   <script async src="https://basicons.xyz/embed.js"> </script>
+  
   <style>
     body {
     height: 100vh;
@@ -22,7 +23,6 @@
 <body>
   <!-- Container -->
   <div class="container mx-auto ">
-    @include('layouts.notifications')
 
     <div class="flex justify-center px-6 ">
       <!-- Row -->
