@@ -147,17 +147,17 @@
                         <i class="bi bi-funnel text-white text-lg opacity-10" aria-hidden="true"></i>
                     </div>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-md-3">
                     <button type="button" class="btn btn-default text-primary bg-white range-btn" data-range="1-mes">
                         1 Mes
                     </button>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-md-3">
                     <button type="button" class="btn btn-default text-primary bg-white range-btn" data-range="3-meses">
                         3 Meses
                     </button>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-md-3">
                     <button type="button" class="btn btn-default text-primary bg-white range-btn" data-range="4-meses">
                         4 Meses
                     </button>

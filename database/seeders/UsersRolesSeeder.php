@@ -21,32 +21,6 @@ class UsersRolesSeeder extends Seeder
             Role::firstOrCreate(['name' => $roleName]);
         }
 
-        // Usuario Cliente
-        $cliente = User::create([
-            'brand_id' => 1, 
-            'license' => 'LIC-CL-001',
-            'first_name' => 'Juan',
-            'middle_name' => 'Carlos',
-            'first_surname' => 'Pérez',
-            'second_surname' => 'Gómez',
-            'date_of_birth' => '1990-05-15',
-            'phone_number' => '5551234567',
-            'telephone_extension' => '123',
-            'cell_number' => '5557654321',
-            'profile_photo' => null,
-            'signature_file' => null,
-            'web_site' => 'https://clienteejemplo.com',
-            'active' => 1,
-            'email' => 'juan.perez@cliente.com',
-            'email_alternative' => 'jperez_alt@cliente.com',
-            'email_verified_at' => now(),
-            'user_name' => 'juanp',
-            'password' => Hash::make('password123'),
-            'created_by' => null,
-            'updated_by' => null,
-        ]);
-        $cliente->assignRole('cliente');
-
         $admin = User::create([
             'brand_id' => 1,
             'license' => 'LIC-AD-002',
@@ -96,5 +70,34 @@ class UsersRolesSeeder extends Seeder
             'updated_by' => null,
         ]);
         $superadmin->assignRole('superadmin');
+
+        // Usuario Cliente
+        for ($i = 1; $i <= 9; $i++) {
+            $cliente = User::create([
+                'brand_id' => 1, 
+                'license' => 'LIC-CL-00' . $i,
+                'first_name' => 'Juan' . $i,
+                'middle_name' => 'Carlos',
+                'first_surname' => 'Pérez',
+                'second_surname' => 'Gómez',
+                'date_of_birth' => '1990-05-15',
+                'phone_number' => '555123456' . $i,
+                'telephone_extension' => '123',
+                'cell_number' => '555765432' . $i,
+                'profile_photo' => null,
+                'signature_file' => null,
+                'web_site' => 'https://clienteejemplo' . $i . '.com',
+                'active' => 1,
+                'email' => 'juan.perez' . $i . '@cliente.com',
+                'email_alternative' => 'jperez_alt' . $i . '@cliente.com',
+                'email_verified_at' => now(),
+                'user_name' => 'juanp' . $i,
+                'password' => Hash::make('password123'),
+                'created_by' => null,
+                'updated_by' => null,
+            ]);
+            $cliente->assignRole('cliente');
+        }
+
     }
 }

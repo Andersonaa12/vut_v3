@@ -1,0 +1,21 @@
+<?php
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class SubserieSupport extends BaseModel
+{
+    protected $table='subserie_supports';
+    public $timestamps = true;
+    protected $primaryKey = 'id';
+
+    use SoftDeletes;
+    protected $fillable = [
+        'brand_id',
+        'name'
+    ];
+
+    public function Brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+}

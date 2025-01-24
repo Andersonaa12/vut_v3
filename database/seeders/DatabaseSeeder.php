@@ -16,6 +16,21 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
             UsersRolesSeeder::class,
+            DependenciesSeeder::class,
+            SeriesSeeder::class,
+            DependencySeriesSeeder::class,
+            SubserieSupportsSeeder::class,
+            
+            SubserieFinalDispositionsSeeder::class,
+            SubseriesSeeder::class,
+            DocumentTypesSeeder::class,
+            DocumentSeriesSubseriesSeeder::class,
+
+            MasterEntriesSeeder::class,
+            MasterEntrieDetailsSeeder::class,
+            MasterEntrieAssignedUsersSeeder::class,
+            MasterEntriesDocumentsSeeder::class,
+            DocumentMasterEntriesSeeder::class,
         ]);
     }
 }

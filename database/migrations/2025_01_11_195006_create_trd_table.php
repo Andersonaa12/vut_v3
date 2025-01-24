@@ -24,6 +24,7 @@ class CreateTrdTable extends Migration
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::create('series', function (Blueprint $table) {
             $table->id();
@@ -37,6 +38,7 @@ class CreateTrdTable extends Migration
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('dependency_series', function (Blueprint $table) {
@@ -47,6 +49,7 @@ class CreateTrdTable extends Migration
             $table->foreignId('dependency_id')->constrained('dependencies')->onDelete('cascade');
             $table->foreignId('series_id')->constrained('series')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
         
         Schema::create('subserie_supports', function (Blueprint $table) {
@@ -56,6 +59,7 @@ class CreateTrdTable extends Migration
             
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::table('subserie_supports')->insert([
             ['id' => 1, 'brand_id' => '1', 'name' => 'FISICO'],
@@ -70,6 +74,7 @@ class CreateTrdTable extends Migration
             
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::table('subserie_final_dispositions')->insert([
             ['id' => 1, 'brand_id' => '1', 'name' => 'CONSERVACION TOTAL'],
@@ -85,7 +90,7 @@ class CreateTrdTable extends Migration
 
             $table->unsignedBigInteger('subserie_support_id')->nullable();
             $table->foreign('subserie_support_id')->references('id')->on('subserie_supports')->onDelete('cascade');
-            
+
             $table->string('unique_code');
             $table->text('description')->nullable();
 
@@ -100,6 +105,7 @@ class CreateTrdTable extends Migration
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('document_response_types', function (Blueprint $table) {
@@ -109,6 +115,7 @@ class CreateTrdTable extends Migration
 
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::table('document_response_types')->insert([
             ['id' => 1, 'brand_id' => '1', 'name' => 'Horas'],
@@ -139,6 +146,7 @@ class CreateTrdTable extends Migration
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('document_series_subseries', function (Blueprint $table) {
@@ -150,6 +158,7 @@ class CreateTrdTable extends Migration
             $table->foreignId('series_id')->nullable()->constrained('series')->onDelete('cascade');
             $table->foreignId('subseries_id')->nullable()->constrained('subseries')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -160,6 +169,14 @@ class CreateTrdTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trd');
+        Schema::dropIfExists('document_series_subseries');
+        Schema::dropIfExists('document_types');
+        Schema::dropIfExists('document_response_types');
+        Schema::dropIfExists('subseries');
+        Schema::dropIfExists('subserie_final_dispositions');
+        Schema::dropIfExists('subserie_supports');
+        Schema::dropIfExists('dependency_series');
+        Schema::dropIfExists('series');
+        Schema::dropIfExists('dependencies');
     }
 }

@@ -2,33 +2,34 @@
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MasterEntrieAssignedUser extends BaseModel
+class Series extends BaseModel
 {
-  protected $table='master_entrie_assigned_users';
+  protected $table='series';
   public $timestamps = true;
   protected $primaryKey = 'id';
 
   use SoftDeletes;
   protected $fillable = [
     'brand_id',
-    'master_entrie_id',
-    'user_id',
-    'active',
+    'unique_code',
+    'name',
+    'description',
     'created_by',
     'updated_by'
   ];
+
   public function Brand()
   {
       return $this->belongsTo(Brand::class);
   }
 
-  public function MasterEntry()
+  public function Dependencies()
   {
-      return $this->belongsTo(MasterEntry::class);
+      return $this->belongsToMany(Dependency::class, 'dependency_series');
   }
 
-  public function User()
+  public function Subseries()
   {
-      return $this->belongsTo(User::class);
+      return $this->hasMany(Subseries::class);
   }
 }
