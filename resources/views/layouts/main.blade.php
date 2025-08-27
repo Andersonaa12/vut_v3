@@ -232,6 +232,10 @@
         <!-- Github buttons -->
         <script src="{{ asset('assets/js/buttons.js') }}"></script>
         <script src="{{ asset('assets/js/soft-ui-dashboard.min.js') }}"></script>
+        <script>
+            const user_id = {{ Auth::id() }};
+        </script>
+
     </body>
 
 </html>

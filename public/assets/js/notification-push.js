@@ -1,5 +1,3 @@
-require('./bootstrap');
-
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
@@ -7,12 +5,12 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
+    key: import.meta.env.VITE_PUSHER_APP_KEY,   // tu key en .env
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true
 });
 
-window.Echo.private(`App.Models.User.${userId}`)
+window.Echo.private(`App.Models.User.${user_id}`)
     .notification((notification) => {
         console.log("🔔 Nueva notificación recibida:", notification);
 
@@ -35,7 +33,7 @@ window.Echo.private(`App.Models.User.${userId}`)
               <div class="d-flex flex-column justify-content-center ms-2">
                 <h6 class="text-sm font-weight-normal mb-1">
                   <span class="font-weight-bold">${notification.sender_name ?? "Usuario"}</span>: 
-                  ${notification.message}
+                  ${notification.title}
                 </h6>
                 <p class="text-xs text-secondary mb-0">
                   ${notification.description}

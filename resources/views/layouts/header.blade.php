@@ -17,6 +17,65 @@
         </div>
 
         <ul class="navbar-nav justify-content-end">
+         
+          <li class="nav-item dropdown pe-2 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-body p-0 position-relative" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <!-- Icono de campana -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 20.8889C11.5344 21.4827 12.4656 21.4827 13 20.8889M18.5 11C18.7288 12.7551 19.3461 14.4441 20.3146 15.9409L21 17H3L3.68539 15.9408C4.93512 14.0096 5.6 11.7583 5.6 9.45798V8.4C5.6 5.03364 8.19907 2.27432 11.5 2.01924M20 5C20 6.65685 18.6569 8 17 8C15.3431 8 14 6.65685 14 5C14 3.34315 15.3431 2 17 2C18.6569 2 20 3.34315 20 5Z"
+                      stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+
+              <!-- Badge dinámico -->
+              <span id="notification-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ $notifications->count() }}
+              </span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+              
+              <!-- Notificaciones dinámicas -->
+              @foreach ($notifications as $notification)
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      
+                      <!-- Avatar con iniciales -->
+                      <div class="my-auto">
+                        <div 
+                          class="user-initials rounded-circle text-center text-white fw-bold d-flex align-items-center justify-content-center"
+                          style="background-color: rgba(0, 159, 189, 1); width: 40px; height: 40px; font-size: 16px;">
+                          @php
+                            $name = $notification->data['sender_name'] ?? 'User';
+                            $parts = explode(' ', trim($name));
+                            echo strtoupper(substr($parts[0], 0, 1) . (isset($parts[1]) ? substr($parts[1], 0, 1) : ''));
+                          @endphp
+                        </div>
+                      </div>
+
+                      <!-- Contenido -->
+                      <div class="d-flex flex-column justify-content-center ms-2">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">{{ $notification->data['sender_name'] ?? 'Usuario' }}</span>: 
+                          {{ $notification->data['title'] ?? '' }}
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          {{ $notification->data['description'] }}
+                        </p>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          {{ $notification->created_at->diffForHumans() }}
+                        </p>
+                      </div>
+
+                    </div>
+                  </a>
+                </li>
+              @endforeach
+            </ul>
+          </li>
+
           <li class="nav-item dropdown d-flex align-items-center">
             <a href="javascript:;" class="nav-link d-flex align-items-center" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 <div 
@@ -38,82 +97,6 @@
                     <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión
                   </button>
                 </form>
-              </li>
-            </ul>
-          </li>
-         
-          <li class="nav-item dropdown pe-2 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 20.8889C11.5344 21.4827 12.4656 21.4827 13 20.8889M18.5 11C18.7288 12.7551 19.3461 14.4441 20.3146 15.9409L21 17H3L3.68539 15.9408C4.93512 14.0096 5.6 11.7583 5.6 9.45798V8.4C5.6 5.03364 8.19907 2.27432 11.5 2.01924M20 5C20 6.65685 18.6569 8 17 8C15.3431 8 14 6.65685 14 5C14 3.34315 15.3431 2 17 2C18.6569 2 20 3.34315 20 5Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </a>
-            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-              <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                  <div class="d-flex py-1">
-                    <div class="my-auto">
-                      <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="text-sm font-weight-normal mb-1">
-                        <span class="font-weight-bold">New message</span> from Laur
-                      </h6>
-                      <p class="text-xs text-secondary mb-0 ">
-                        <i class="fa fa-clock me-1"></i>
-                        13 minutes ago
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                  <div class="d-flex py-1">
-                    <div class="my-auto">
-                      <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="text-sm font-weight-normal mb-1">
-                        <span class="font-weight-bold">New album</span> by Travis Scott
-                      </h6>
-                      <p class="text-xs text-secondary mb-0 ">
-                        <i class="fa fa-clock me-1"></i>
-                        1 day
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                  <div class="d-flex py-1">
-                    <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                      <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>credit-card</title>
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                            <g transform="translate(1716.000000, 291.000000)">
-                              <g transform="translate(453.000000, 454.000000)">
-                                <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="text-sm font-weight-normal mb-1">
-                        Payment successfully completed
-                      </h6>
-                      <p class="text-xs text-secondary mb-0 ">
-                        <i class="fa fa-clock me-1"></i>
-                        2 days
-                      </p>
-                    </div>
-                  </div>
-                </a>
               </li>
             </ul>
           </li>
